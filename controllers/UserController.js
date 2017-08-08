@@ -45,3 +45,25 @@ module.exports.register = async (req, res, next) => {
 
 	next();
 }
+
+module.exports.account = (req, res) => {
+	res.render('account', {
+		title: 'Profile'
+	})
+}
+
+module.exports.updateAccount = async (req, res) => {
+	const updates = {
+		name: req.body.name,
+		email: req.body.email
+	}
+
+	const user = await User.findOneAndUpdate(
+		{_id: req.user._id}, 
+		{$set: updates}, 
+		{new: true, runValidator: true, context: 'query'}
+	);
+
+	req.flash('success', 'Profile Updated!');
+	res.redirect('back');
+}

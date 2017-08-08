@@ -1,19 +1,19 @@
-const express = require('express');
-const session = require('express-session');
-const mongoose = require('mongoose');
-const MongoStore = require('connect-mongo')(session);
 const path = require('path');
-const cookieParser = require('cookie-parser');
-const bodyParser = require('body-parser');
+const express = require('express');
 const passport = require('passport');
-const promisify = require('es6-promisify');
+const mongoose = require('mongoose');
 const flash = require('connect-flash');
+const bodyParser = require('body-parser');
+const promisify = require('es6-promisify');
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+const MongoStore = require('connect-mongo')(session);
 const expressValidator = require('express-validator');
 
 const routes = require('./routes/index');
 const helpers = require('./helpers');
 const errorHandlers = require('./handlers/errorHandlers');
-require('./handlers/passport'); 
+require('./handlers/passport');
 
 
 // create our Express app
@@ -30,7 +30,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Exposes a bunch of methods for validating data. Used heavily on userController.validateRegister
+// Exposes a bunch of methods for validating data. Used heavily on UserController.validateRegister
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
@@ -50,7 +50,8 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-// // The flash middleware let's us use req.flash('error', 'Shit!'), which will then pass that message to the next page the user requests
+// // The flash middleware let's us use req.flash('error', 'Shit!'), 
+// which will then pass that message to the next page the user requests
 app.use(flash());
 
 // pass variables to our templates + all requests
